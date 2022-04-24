@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx2
+  name: nginx2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx2
+  template:
+    metadata:
+      labels:
+        app: nginx2
+    spec:
+      containers:
+      - image: nginx:alpine
+        name: nginx
+        lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "echo nginx2 > /usr/share/nginx/html/index.html"]
