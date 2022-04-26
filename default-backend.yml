@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: default-backend
+  name: default-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: default-backend
+  template:
+    metadata:
+      labels:
+        app: default-backend
+    spec:
+      containers:
+      - image: nginx:alpine
+        name: nginx
+        lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "echo default-backend > /usr/share/nginx/html/index.html"]
+
